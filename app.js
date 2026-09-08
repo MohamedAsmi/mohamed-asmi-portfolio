@@ -121,20 +121,34 @@ copyEmail.addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(email); showToast('Email copied to clipboard'); } catch { showToast(email); }
 });
 
-$('[data-contact-form]').addEventListener('submit', (event) => {
+$('[data-contact-form]').addEventListener('submit', async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const formData = new FormData(form);
   const name = String(formData.get('name') || '').trim();
-  const email = String(formData.get('email') || '').trim();
   const reason = String(formData.get('reason') || '').trim();
-  const message = String(formData.get('message') || '').trim();
   const status = $('[data-form-status]');
-  const subject = `${reason} - portfolio enquiry from ${name}`;
-  const body = [`Name: ${name}`, `Email: ${email}`, `Topic: ${reason}`, '', message].join('\n');
-  status.textContent = 'Opening your email app...';
-  window.location.href = `mailto:shamsudeenasmi96@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  form.reset();
+  const submitButton = form.querySelector('button[type="submit"]');
+  const originalLabel = submitButton.innerHTML;
+  formData.append('_subject', `${reason} - portfolio enquiry from ${name}`);
+  submitButton.disabled = true;
+  submitButton.innerHTML = 'Sending...';
+  status.textContent = '';
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: { Accept: 'application/json' },
+    });
+    if (!response.ok) throw new Error('Form submission failed');
+    status.textContent = 'Message sent successfully. I will get back to you soon.';
+    form.reset();
+  } catch {
+    status.textContent = 'Could not send the message. Please email me directly at shamsudeenasmi96@gmail.com.';
+  } finally {
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalLabel;
+  }
 });
 
 const commandOverlay = $('[data-command-overlay]');
