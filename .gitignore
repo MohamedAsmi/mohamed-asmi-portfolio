@@ -1,0 +1,7 @@
+# Private source/reference files
+Mohamed_Asmi_Portfolio_Website_Specification.docx
+tmp_*.txt
+
+# Local operating-system files
+.DS_Store
+Thumbs.db
