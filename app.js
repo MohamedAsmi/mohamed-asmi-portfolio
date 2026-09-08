@@ -115,6 +115,18 @@ $$('[data-stack]').forEach((node) => {
   node.addEventListener('mouseenter', activate); node.addEventListener('focus', activate); node.addEventListener('click', activate);
 });
 
+const captchaQuestion = $('[data-captcha-question]');
+const captchaInput = $('[data-captcha-input]');
+let captchaAnswer = 0;
+const refreshCaptcha = () => {
+  const first = Math.floor(Math.random() * 8) + 1;
+  const second = Math.floor(Math.random() * 8) + 1;
+  captchaAnswer = first + second;
+  captchaQuestion.textContent = `${first} + ${second} = ?`;
+  captchaInput.value = '';
+};
+refreshCaptcha();
+
 const copyEmail = $('[data-copy-email]');
 copyEmail.addEventListener('click', async () => {
   const email = copyEmail.dataset.email;
@@ -128,6 +140,12 @@ $('[data-contact-form]').addEventListener('submit', async (event) => {
   const name = String(formData.get('name') || '').trim();
   const reason = String(formData.get('reason') || '').trim();
   const status = $('[data-form-status]');
+  if (Number(formData.get('captcha')) !== captchaAnswer) {
+    status.textContent = 'Please complete the human verification correctly.';
+    refreshCaptcha();
+    captchaInput.focus();
+    return;
+  }
   const submitButton = form.querySelector('button[type="submit"]');
   const originalLabel = submitButton.innerHTML;
   formData.append('_subject', `${reason} - portfolio enquiry from ${name}`);
@@ -143,6 +161,7 @@ $('[data-contact-form]').addEventListener('submit', async (event) => {
     if (!response.ok) throw new Error('Form submission failed');
     status.textContent = 'Message sent successfully. I will get back to you soon.';
     form.reset();
+    refreshCaptcha();
   } catch {
     status.textContent = 'Could not send the message. Please email me directly at shamsudeenasmi96@gmail.com.';
   } finally {
