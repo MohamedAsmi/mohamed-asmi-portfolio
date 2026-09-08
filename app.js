@@ -1,4 +1,4 @@
-﻿const $ = (selector, scope = document) => scope.querySelector(selector);
+const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
 const showToast = (message) => {
@@ -18,9 +18,9 @@ themeToggle.addEventListener('click', () => {
   const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = nextTheme;
   localStorage.setItem(themeKey, nextTheme);
-  themeToggle.textContent = nextTheme === 'dark' ? 'â˜¾' : 'â˜¼';
+  themeToggle.textContent = nextTheme === 'dark' ? '☾' : '☼';
 });
-themeToggle.textContent = document.documentElement.dataset.theme === 'dark' ? 'â˜¾' : 'â˜¼';
+themeToggle.textContent = document.documentElement.dataset.theme === 'dark' ? '☾' : '☼';
 
 const header = $('[data-header]');
 window.addEventListener('scroll', () => header.classList.toggle('is-scrolled', window.scrollY > 12), { passive: true });
@@ -30,12 +30,12 @@ const mainNav = $('.main-nav');
 mobileMenu.addEventListener('click', () => {
   const isOpen = mainNav.classList.toggle('is-open');
   mobileMenu.setAttribute('aria-expanded', String(isOpen));
-  mobileMenu.textContent = isOpen ? 'Ã—' : 'â˜°';
+  mobileMenu.textContent = isOpen ? '×' : '☰';
 });
 $$('.main-nav a').forEach((link) => link.addEventListener('click', () => {
   mainNav.classList.remove('is-open');
   mobileMenu.setAttribute('aria-expanded', 'false');
-  mobileMenu.textContent = 'â˜°';
+  mobileMenu.textContent = '☰';
 }));
 
 const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
@@ -85,11 +85,11 @@ $('[data-modal-close]').addEventListener('click', () => architectureModal.close(
 architectureModal.addEventListener('click', (event) => { if (event.target === architectureModal) architectureModal.close(); });
 
 const caseData = {
-  posmate: { number: '01', kicker: 'Business system / production', title: 'POSMate', summary: 'A calmer way for retail teams to keep sales, inventory and daily operations moving.', challenge: 'Operators were working across disconnected spreadsheets and tools, which made the end of every day harder than it needed to be.', approach: 'A focused Laravel + React workspace with a clear domain model, role-aware workflows and reports that answer the questions teams actually ask.', outcome: 'Fewer manual handoffs, faster visibility into the day and a foundation that can add new workflows without a redesign.', stack: 'Laravel Â· React Â· MySQL Â· Queues' },
-  paperpartner: { number: '02', kicker: 'Education mobile app / published', title: 'Paper Partner', summary: 'A mobile study companion for students in Sri Lanka.', challenge: 'Students need a quick way to find past exam papers, model papers, mark schemes and study resources without searching across disconnected sources.', approach: 'A focused mobile experience that organizes materials by subject and level, with simple navigation built for repeat study sessions.', outcome: 'A published Android app that makes exam preparation resources easier to discover and use.', stack: 'Android Â· Education Â· Mobile' },
-  erpnext: { number: '03', kicker: 'Education + mobile / ongoing', title: 'Frappe / ERPNext Education', summary: 'An education management solution with a companion mobile app for student-facing services.', challenge: 'The platform needed to support the full education workflow, from admissions and fee plans through schedules, attendance, examinations and results.', approach: 'A Frappe / ERPNext foundation paired with mobile services and API-driven workflows for students, instructors and administrators.', outcome: 'A connected operating system for education teams with a clearer path to mobile access and future workflow expansion.', stack: 'Frappe Â· ERPNext Â· Mobile Â· APIs' },
-  tour: { number: '04', kicker: 'Academic / R&D', title: 'AI-Powered 360 Virtual Tour', summary: 'An immersive real-estate tour experience built as an individual academic project.', challenge: 'The system needed to make real-estate exploration more engaging while keeping access, roles and tour management maintainable.', approach: 'A Laravel application with authentication, role-based access, responsive UI and an extensible tour-management model.', outcome: 'A strong foundation for immersive property experiences and a practical demonstration of product architecture.', stack: 'Laravel Â· Authentication Â· Responsive UI' },
-  delivery: { number: '05', kicker: 'Full-stack contribution / 2020 â€” now', title: 'Mobile + Backend Delivery', summary: 'The cross-platform and backend work that makes business applications dependable in production.', challenge: 'Business applications need to work across connectivity conditions, devices and integration boundaries without losing data or clarity.', approach: 'Reusable mobile components, Provider / Bloc state patterns, offline-first persistence, queued synchronization, REST API integration and Linux/VPS deployment workflows.', outcome: 'More resilient application flows, cleaner handoffs between mobile and backend systems and 30% faster API data retrieval after query optimization.', stack: 'React Native Â· Flutter Â· Laravel Â· SQLite Â· AWS' },
+  posmate: { number: '01', kicker: 'Business system / production', title: 'POSMate', summary: 'A calmer way for retail teams to keep sales, inventory and daily operations moving.', challenge: 'Operators were working across disconnected spreadsheets and tools, which made the end of every day harder than it needed to be.', approach: 'A focused Laravel + React workspace with a clear domain model, role-aware workflows and reports that answer the questions teams actually ask.', outcome: 'Fewer manual handoffs, faster visibility into the day and a foundation that can add new workflows without a redesign.', stack: 'Laravel · React · MySQL · Queues' },
+  paperpartner: { number: '02', kicker: 'Education mobile app / published', title: 'Paper Partner', summary: 'A mobile study companion for students in Sri Lanka.', challenge: 'Students need a quick way to find past exam papers, model papers, mark schemes and study resources without searching across disconnected sources.', approach: 'A focused mobile experience that organizes materials by subject and level, with simple navigation built for repeat study sessions.', outcome: 'A published Android app that makes exam preparation resources easier to discover and use.', stack: 'Android · Education · Mobile' },
+  erpnext: { number: '03', kicker: 'Education + mobile / ongoing', title: 'Frappe / ERPNext Education', summary: 'An education management solution with a companion mobile app for student-facing services.', challenge: 'The platform needed to support the full education workflow, from admissions and fee plans through schedules, attendance, examinations and results.', approach: 'A Frappe / ERPNext foundation paired with mobile services and API-driven workflows for students, instructors and administrators.', outcome: 'A connected operating system for education teams with a clearer path to mobile access and future workflow expansion.', stack: 'Frappe · ERPNext · Mobile · APIs' },
+  tour: { number: '04', kicker: 'Academic / R&D', title: 'AI-Powered 360 Virtual Tour', summary: 'An immersive real-estate tour experience built as an individual academic project.', challenge: 'The system needed to make real-estate exploration more engaging while keeping access, roles and tour management maintainable.', approach: 'A Laravel application with authentication, role-based access, responsive UI and an extensible tour-management model.', outcome: 'A strong foundation for immersive property experiences and a practical demonstration of product architecture.', stack: 'Laravel · Authentication · Responsive UI' },
+  delivery: { number: '05', kicker: 'Full-stack contribution / 2020 — now', title: 'Mobile + Backend Delivery', summary: 'The cross-platform and backend work that makes business applications dependable in production.', challenge: 'Business applications need to work across connectivity conditions, devices and integration boundaries without losing data or clarity.', approach: 'Reusable mobile components, Provider / Bloc state patterns, offline-first persistence, queued synchronization, REST API integration and Linux/VPS deployment workflows.', outcome: 'More resilient application flows, cleaner handoffs between mobile and backend systems and 30% faster API data retrieval after query optimization.', stack: 'React Native · Flutter · Laravel · SQLite · AWS' },
 };
 const caseModal = $('[data-case-modal]');
 $$('[data-case-study]').forEach((button) => button.addEventListener('click', () => {
@@ -109,7 +109,7 @@ caseModal.addEventListener('click', (event) => { if (event.target === caseModal)
 $('[data-case-contact]').addEventListener('click', () => caseModal.close());
 
 const stackDetail = $('[data-stack-detail]');
-const stackCopy = { Frontend: 'React Â· TypeScript Â· Electron â€” interfaces that stay fast and readable.', Backend: 'PHP Â· Laravel Â· Node.js â€” APIs, domain logic and integration layers.', Mobile: 'React Native Â· Flutter Â· Dart â€” cross-platform products with a native feel.', Databases: 'MySQL Â· PostgreSQL Â· MariaDB Â· SQLite â€” data models shaped around the workflow.', 'Cloud / DevOps': 'AWS Â· SQS Â· Linux Â· CI/CD â€” delivery and runtime care.', 'Platforms / Tools': 'GitHub Â· Composer Â· NPM Â· Frappe â€” the tools that keep work moving.' };
+const stackCopy = { Frontend: 'React · TypeScript · Electron — interfaces that stay fast and readable.', Backend: 'PHP · Laravel · Node.js — APIs, domain logic and integration layers.', Mobile: 'React Native · Flutter · Dart — cross-platform products with a native feel.', Databases: 'MySQL · PostgreSQL · MariaDB · SQLite — data models shaped around the workflow.', 'Cloud / DevOps': 'AWS · SQS · Linux · CI/CD — delivery and runtime care.', 'Platforms / Tools': 'GitHub · Composer · NPM · Frappe — the tools that keep work moving.' };
 $$('[data-stack]').forEach((node) => {
   const activate = () => { $$('[data-stack]').forEach((item) => item.classList.remove('is-active')); node.classList.add('is-active'); stackDetail.textContent = stackCopy[node.dataset.stack]; };
   node.addEventListener('mouseenter', activate); node.addEventListener('focus', activate); node.addEventListener('click', activate);
